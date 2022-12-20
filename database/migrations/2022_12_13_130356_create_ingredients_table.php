@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
+            $table->integer('quantity');
             $table->string('unit');
             $table->string('ingredient');
-            $table->string('contains');
+            $table->integer('price');
             $table->string('foto', 2048);
             $table->timestamps();
         });

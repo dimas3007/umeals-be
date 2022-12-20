@@ -23,7 +23,7 @@ class MealIngredientController extends Controller
         $validator = Validator::make($request->all(), [
             'meal_id' => 'required|integer',
             'ingredient_id' => 'required|integer',
-            'amount' => 'required|integer'
+            'quantity' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -37,7 +37,7 @@ class MealIngredientController extends Controller
          $mealIngredient = MealIngredient::create([
             'meal_id' => $request->get('meal_id'),
             'ingredient_id' => $request->get('ingredient_id'),
-            'amount' => $request->get('amount'),
+            'quantity' => $request->get('quantity'),
         ]);
 
         return response()->json([
@@ -75,7 +75,7 @@ class MealIngredientController extends Controller
         $validator = Validator::make($request->all(), [
             'meal_id' => 'required|integer',
             'ingredient_id' => 'required|integer',
-            'amount' => 'required|integer'
+            'quantity' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -89,7 +89,7 @@ class MealIngredientController extends Controller
          $mealIngredient->update([
             'meal_id' => $request->get('meal_id'),
             'ingredient_id' => $request->get('ingredient_id'),
-            'amount' => $request->get('amount'),
+            'quantity' => $request->get('quantity'),
         ]);
 
         return response()->json([

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('shipping');
             $table->integer('tax');
             $table->integer('discount');
-            $table->date('first_delivery_date');
+            $table->date('delivery_date');
             $table->string('special_instructions', 2048);
             $table->integer('total_price');
             $table->string('payment_method');
