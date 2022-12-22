@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('instructions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('meal_id')->constrained();
+            $table->foreignId('meal_id')->constrained()->onDelete('cascade');
             $table->string('foto', 2048);
             $table->string('instruction', 2048);
             $table->timestamps();

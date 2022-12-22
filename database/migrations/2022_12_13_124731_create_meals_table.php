@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('prep_time');
             $table->string('difficulty');
             $table->integer('price');
-            $table->foreignId('nutrition_value_id')->constrained();
+            $table->foreignId('nutrition_value_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

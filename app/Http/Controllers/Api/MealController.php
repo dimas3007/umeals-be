@@ -56,10 +56,20 @@ class MealController extends Controller
             ]);
         }
 
+        $filenamePath = "";
+        if($request->hasFile('foto')) {
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $filenamePath = $filename.'_'.time().'.'.$extension;
+
+            $request->file('foto')->storeAs('public/meal', $filenamePath);
+        }
+
         $meal = Meal::create([
             'name' => $request->get('name'),
             'with' => $request->get('with'),
-            'foto' => $request->get('foto'),
+            'foto' => $filenamePath,
             'description' => $request->get('description'),
             'tags' => $request->get('tags'),
             'allergens' => $request->get('allergens'),
@@ -89,7 +99,8 @@ class MealController extends Controller
         return response()->json([
             'data' => new MealResource($meal),
             'message' => 'Data meal found',
-            'success' => true
+            'success' => true,
+            'id' => $meal->id,
         ]);
     }
 
@@ -125,6 +136,16 @@ class MealController extends Controller
             ]);
         }
 
+        $filenamePath = "";
+        if($request->hasFile('foto')) {
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $filenamePath = $filename.'_'.time().'.'.$extension;
+
+            $request->file('foto')->storeAs('public/meal', $filenamePath);
+        }
+
         $meal->update([
             'name' => $request->get('name'),
             'with' => $request->get('with'),
@@ -139,6 +160,12 @@ class MealController extends Controller
             'nutrition_value_id' => $request->get('nutrition_value_id'),
             'price' => $request->get('price'),
         ]);
+
+        if($request->hasFile('foto')) {
+            $meal->update([
+                'foto' => $filenamePath,
+            ]);
+        }
 
         return response()->json([
             'data' => new MealResource($meal),

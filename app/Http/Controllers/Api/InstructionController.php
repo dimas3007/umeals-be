@@ -34,10 +34,20 @@ class InstructionController extends Controller
             ]);
         }
 
+        $filenamePath = "";
+        if($request->hasFile('foto')) {
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $filenamePath = $filename.'_'.time().'.'.$extension;
+
+            $request->file('foto')->storeAs('public/instruction', $filenamePath);
+        }
+
         $instruction = Instruction::create([
             'meal_id' => $request->get('meal_id'),
             'instruction' => $request->get('instruction'),
-            'foto' => $request->get('foto'),
+            'foto' => $filenamePath,
         ]);
 
         return response()->json([
@@ -47,18 +57,12 @@ class InstructionController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Meal $meal)
+    public function getMealInstructions($meal)
     {
         $instructions = Instruction::where('meal_id', $meal)->get();
         return response()->json([
             'data' => InstructionResource::collection($instructions),
-            'message' => 'Data instructions found',
+            'message' => 'Fetch all instructions successfully.',
             'success' => true
         ]);
     }
@@ -86,11 +90,27 @@ class InstructionController extends Controller
             ]);
         }
 
+        $filenamePath = "";
+        if($request->hasFile('foto')) {
+            $filenameWithExt = $request->file('foto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $filenamePath = $filename.'_'.time().'.'.$extension;
+
+            $request->file('foto')->storeAs('public/instruction', $filenamePath);
+        }
+
         $instruction->update([
             'meal_id' => $request->get('meal_id'),
             'instruction' => $request->get('instruction'),
             'foto' => $request->get('foto'),
         ]);
+
+        if($request->hasFile('foto')) {
+            $instruction->update([
+                'foto' => $filenamePath,
+            ]);
+        }
 
         return response()->json([
             'data' => new InstructionResource($instruction),

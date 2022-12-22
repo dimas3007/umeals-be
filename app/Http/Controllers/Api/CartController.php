@@ -70,8 +70,6 @@ class CartController extends Controller
     public function update(Request $request, Cart $cart)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
-            'meal_id' => 'required|integer',
             'amount' => 'required|integer'
         ]);
 
@@ -84,8 +82,6 @@ class CartController extends Controller
         }
 
         $cart->update([
-            'user_id' => $request->user()->id,
-            'meal_id' => $request->get('meal_id'),
             'amount' => $request->get('amount'),
         ]);
 

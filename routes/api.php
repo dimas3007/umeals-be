@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\InstructionController;
+use App\Http\Controllers\Api\MealIngredientController;
+use App\Http\Controllers\Api\NutritionValueController;
+use App\Http\Controllers\Api\UtensilsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +31,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/address', \App\Http\Controllers\Api\AddressController::class);
     Route::resource('/cart', \App\Http\Controllers\Api\CartController::class);
     Route::resource('/ingredient', \App\Http\Controllers\Api\IngredientController::class);
+    Route::resource('/order', \App\Http\Controllers\Api\OrderController::class);
+
+    Route::resource('/meal', \App\Http\Controllers\Api\MealController::class);
+
+    Route::get('/meal-ingredient/data/{meal}', [MealIngredientController::class, 'getMealIngredients']);
+    Route::resource('/meal-ingredient', \App\Http\Controllers\Api\MealIngredientController::class);
+
+    Route::get('/nutrition/data/{nutrition}', [NutritionValueController::class, 'getMealNutrition']);
+    Route::resource('/nutrition', \App\Http\Controllers\Api\NutritionValueController::class);
+
+    Route::get('/utensil/data/{meal}', [UtensilsController::class, 'getMealUtensils']);
+    Route::resource('/utensil', \App\Http\Controllers\Api\UtensilsController::class);
+
+    Route::get('/instruction/data/{meal}', [InstructionController::class, 'getMealInstructions']);
+    Route::resource('/instruction', \App\Http\Controllers\Api\InstructionController::class);
+
 });

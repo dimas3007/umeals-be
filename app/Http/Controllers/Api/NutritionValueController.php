@@ -11,6 +11,21 @@ use Illuminate\Support\Facades\Validator;
 class NutritionValueController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $nutritionValue = NutritionValue::latest()->get();
+        return response()->json([
+            'data' => NutritionValueResource::collection($nutritionValue),
+            'message' => 'Fetch all posts',
+            'success' => true
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -68,7 +83,17 @@ class NutritionValueController extends Controller
          return response()->json([
             'data' => new NutritionValueResource($nutritionValue),
             'message' => 'Data nutrition value found',
-            'success' => true
+            'success' => true,
+            'id' => $nutritionValue->id,
+        ]);
+    }
+
+    public function getMealNutrition($nutrition) {
+        $nutritionValue = NutritionValue::where('id', $nutrition)->first();
+        return response()->json([
+            'data' => new NutritionValueResource($nutritionValue),
+            'message' => 'Data nutrition value found',
+            'success' => true,
         ]);
     }
 

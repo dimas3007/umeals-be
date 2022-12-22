@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('utensils', function (Blueprint $table) {
             $table->id();
             $table->string('utensil');
-            $table->foreignId('meal_id')->constrained();
+            $table->foreignId('meal_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

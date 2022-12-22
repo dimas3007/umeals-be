@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Ingredient;
+use App\Http\Resources\IngredientResource;
 
 class MealIngredientResource extends JsonResource
 {
@@ -14,6 +16,14 @@ class MealIngredientResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $ingredient = Ingredient::find($this->ingredient_id);
+        return [
+            'id' => $this->id,
+            'meal_id' => $this->meal_id,
+            'ingredient' => new IngredientResource($ingredient),
+            'quantity' => $this->quantity,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

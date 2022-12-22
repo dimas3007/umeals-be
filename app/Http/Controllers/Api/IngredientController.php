@@ -60,16 +60,6 @@ class IngredientController extends Controller
             $request->file('foto')->storeAs('public/ingredient', $filenamePath);
         }
 
-        // $uploadFolder = 'ingredient';
-        // $image = $request->file('foto');
-        // $image_uploaded_path = $image->store($uploadFolder, 'public');
-        // $img_url = Storage::disk('public')->url($image_uploaded_path);
-        // $uploadedImageResponse = array(
-        //     "image_name" => basename($image_uploaded_path),
-        //     "image_url" => Storage::disk('public')->url($image_uploaded_path),
-        //     "mime" => $image->getClientMimeType()
-        // );
-
         $ingredient = Ingredient::create([
             'quantity' => $request->get('quantity'),
             'unit' => $request->get('unit'),

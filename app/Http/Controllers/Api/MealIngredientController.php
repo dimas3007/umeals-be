@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MealIngredientResource;
+use App\Http\Resources\MealResource;
 use App\Models\MealIngredient;
 use App\Models\Meal;
 use Illuminate\Http\Request;
@@ -47,19 +48,13 @@ class MealIngredientController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Meal $meal)
+    public function getMealIngredients($meal)
     {
         $mealIngredient = MealIngredient::where('meal_id', $meal)->get();
         return response()->json([
             'data' => MealIngredientResource::collection($mealIngredient),
             'message' => 'Data meal ingredient found',
-            'success' => true
+            'success' => true,
         ]);
     }
 

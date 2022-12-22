@@ -44,13 +44,7 @@ class UtensilsController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Meal  $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Meal $meal)
+    public function getMealUtensils($meal)
     {
         $utensils = Utensils::where('meal_id', $meal)->get();
         return response()->json([
