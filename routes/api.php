@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\InstructionController;
 use App\Http\Controllers\Api\MealIngredientController;
 use App\Http\Controllers\Api\NutritionValueController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UtensilsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,12 +26,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/order/success', [OrderController::class, 'success'])->name('checkout.success');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
     Route::resource('/posts', \App\Http\Controllers\Api\PostController::class);
     Route::resource('/address', \App\Http\Controllers\Api\AddressController::class);
     Route::resource('/cart', \App\Http\Controllers\Api\CartController::class);
     Route::resource('/ingredient', \App\Http\Controllers\Api\IngredientController::class);
+    
+    Route::post('/order/checkout', [OrderController::class, 'checkout']);
     Route::resource('/order', \App\Http\Controllers\Api\OrderController::class);
 
     Route::resource('/meal', \App\Http\Controllers\Api\MealController::class);

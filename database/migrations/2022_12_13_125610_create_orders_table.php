@@ -26,8 +26,10 @@ return new class extends Migration
             $table->date('delivery_date');
             $table->string('special_instructions', 2048);
             $table->integer('total_price');
+            $table->integer('total_price_product');
             $table->string('payment_method');
             $table->string('status');
+            $table->bigInteger('uuid');
             $table->timestamps();
         });
     }

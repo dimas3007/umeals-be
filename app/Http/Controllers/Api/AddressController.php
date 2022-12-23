@@ -51,6 +51,7 @@ class AddressController extends Controller
         }
 
         $address = Address::create([
+            'name' => $request->get('name'),
             'street_address' => $request->get('street_address'),
             'apt_suite_floor' => $request->get('apt_suite_floor'),
             'city' => $request->get('city'),
